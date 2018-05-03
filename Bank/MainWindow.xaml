@@ -6,7 +6,13 @@
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
         Title="Bank" Height="350" Width="525">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="ListView">
+            <Setter Property="BorderBrush" Value="Green"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110*"/>
             <ColumnDefinition Width="301*"/>
@@ -18,13 +24,14 @@
         </Grid.RowDefinitions>
 
         <!-- Шапка -->
-        <DockPanel Grid.ColumnSpan="3" Grid.Row="0">
-            <Label Name="NameLable" Content="Name" FontSize="20" DockPanel.Dock="Left" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
-            <Button Content="Выйти" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0" Padding="5,2"/>
-        </DockPanel>
+        <Label Name="NameLable" Grid.Row="0" Grid.ColumnSpan="2"
+               Content="Name" FontSize="20" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button Content="Выйти" Grid.Column="2"
+                VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Padding="5,2"/>
 
         <!-- Список счетов -->
-        <ListBox Name="AccountList" Grid.Column="0" Grid.Row="1"/>
+        <ListView Name="AccountList" BorderThickness="0,2,2,0"
+                 Grid.Column="0" Grid.Row="1"/>
 
         <!-- Управление счетом -->
         <Grid Grid.Row="1" Grid.Column="1">
@@ -49,7 +56,15 @@
         </Grid>
 
         <!-- Курсы валют -->
-        <ListBox Name="ExchangeList" Grid.Row="1" Grid.Column="2"/>
+        <ListView IsEnabled="True" Name="ExchangeList" Grid.Row="1" Grid.Column="2"
+                 BorderThickness="2,2,0,0">
+            <!--<ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Валюта" DisplayMemberBinding="{Binding Code}"/>
+                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Path = Exchange}" Width="55"/>
+                </GridView>
+            </ListView.View>-->
+        </ListView>
 
     </Grid>
 </Window>
