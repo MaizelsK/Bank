@@ -15,16 +15,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Bank.Entities;
 
 namespace Bank
 {
     public partial class MainWindow : Window
     {
+        private User CurrentUser { get; set; }
         public MainWindow()
         {
+            //CurrentUser = signedUser;
+
             InitializeComponent();
             InitializeExchangeList();
+            //InitializeAccountList();
+        }
 
+        // Инициализация списка счетов пользователя
+        private void InitializeAccountList()
+        {
+            var gridView = new GridView();
+            AccountList.View = gridView;
+
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = "Счета",
+                DisplayMemberBinding = new Binding("Name")
+            });
+
+            AccountList.ItemsSource = CurrentUser.Accounts;
         }
 
         // Инициализация списка курсов валют
@@ -33,13 +52,22 @@ namespace Bank
             var gridView = new GridView();
             ExchangeList.View = gridView;
 
-            gridView.Columns.Add(new GridViewColumn { Header = "Валюта", DisplayMemberBinding = new Binding("Code"), Width = 45 });
-            gridView.Columns.Add(new GridViewColumn { Header = "Курс", DisplayMemberBinding = new Binding("Exchange") { StringFormat = "{0:0.000}" }, Width = 40 });
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = "Валюта",
+                DisplayMemberBinding = new Binding("Code"),
+                Width = 45
+            });
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = "Курс",
+                DisplayMemberBinding = new Binding("Exchange") { StringFormat = "{0:0.000}" },
+                Width = 40
+            });
 
-            FillExchangeValues(ExchangeList);
             // Создание потока
-            //Thread thread = new Thread(new ParameterizedThreadStart(FillExchangeValues));
-            //thread.Start(ExchangeList);
+            Thread thread = new Thread(new ParameterizedThreadStart(FillExchangeValues));
+            thread.Start(ExchangeList);
         }
 
         // Получения данных с egov.kz
@@ -55,8 +83,11 @@ namespace Bank
                 data = Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(json));
             }
 
-            List<ExRate> rates = JsonConvert.DeserializeObject<List<ExRate>>(data);
-            tempView.ItemsSource = rates;
+            Dispatcher.Invoke(() =>
+            {
+                List<ExRate> rates = JsonConvert.DeserializeObject<List<ExRate>>(data);
+                tempView.ItemsSource = rates;
+            });
         }
     }
 }
