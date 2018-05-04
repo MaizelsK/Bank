@@ -1,0 +1,62 @@
+﻿<Window x:Class="Bank.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank"
+        mc:Ignorable="d"
+        Title="Регистрация" Height="400" Width="400">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="20, 0, 0, 0"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="15,5,0,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+            <Label Content="Имя" Margin="15,17,0,0"/>
+            <TextBox Name="FirstNameText"/>
+
+            <Label Content="Фамилия" Margin="15,17,0,0"/>
+            <TextBox Name="SurNameText"/>
+
+            <Label Content="Отчество" Margin="15,17,0,0"/>
+            <TextBox Name="MiddleNameText"/>
+
+            <Label Content="Дата рождения" Margin="15,17,0,0"/>
+            <DatePicker Name="BirthDatePicker" Margin="20,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
+            <Label Content="Почтовый ящик"/>
+            <TextBox Name="EmailText"/>
+
+            <Label Content="Номер телефона"/>
+            <TextBox Name="PhoneText"/>
+
+            <Label Content="Логин"/>
+            <TextBox Name="LoginText"/>
+
+            <Label Content="Пароль"/>
+            <TextBox Name="PasswordText"/>
+
+            <Label Content="Потвердите пароль"/>
+            <TextBox Name="PasswordConfText"/>
+        </StackPanel>
+    </Grid>
+</Window>

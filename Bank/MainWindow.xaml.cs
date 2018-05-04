@@ -22,13 +22,13 @@ namespace Bank
     public partial class MainWindow : Window
     {
         private User CurrentUser { get; set; }
-        public MainWindow()
-        {
-            //CurrentUser = signedUser;
+        public MainWindow(User signedUser)
+        { 
+            CurrentUser = signedUser;
 
             InitializeComponent();
             InitializeExchangeList();
-            //InitializeAccountList();
+            InitializeAccountList();
         }
 
         // Инициализация списка счетов пользователя
