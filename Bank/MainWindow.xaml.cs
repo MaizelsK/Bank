@@ -28,21 +28,6 @@ namespace Bank
 
             InitializeComponent();
             InitializeExchangeList();
-            InitializeAccountList();
-        }
-
-        // Инициализация списка счетов пользователя
-        private void InitializeAccountList()
-        {
-            var gridView = new GridView();
-            AccountList.View = gridView;
-
-            gridView.Columns.Add(new GridViewColumn
-            {
-                Header = "Счета",
-                DisplayMemberBinding = new Binding("Name")
-            });
-
             AccountList.ItemsSource = CurrentUser.Accounts;
         }
 
@@ -56,13 +41,11 @@ namespace Bank
             {
                 Header = "Валюта",
                 DisplayMemberBinding = new Binding("Code"),
-                Width = 45
             });
             gridView.Columns.Add(new GridViewColumn
             {
                 Header = "Курс",
-                DisplayMemberBinding = new Binding("Exchange") { StringFormat = "{0:0.000}" },
-                Width = 40
+                DisplayMemberBinding = new Binding("Exchange") { StringFormat = "{0:0.000}" }
             });
 
             // Создание потока
@@ -88,6 +71,12 @@ namespace Bank
                 List<ExRate> rates = JsonConvert.DeserializeObject<List<ExRate>>(data);
                 tempView.ItemsSource = rates;
             });
+        }
+
+        private void AccountButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            Account acc = clickedButton.DataContext as Account;
         }
     }
 }

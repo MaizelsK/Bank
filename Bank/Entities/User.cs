@@ -20,6 +20,11 @@ namespace Bank.Entities
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public virtual ICollection<Account> Accounts { get; set; }
+
+        public User()
+        {
+            Accounts = new List<Account>();
+        }
     }
 }
 

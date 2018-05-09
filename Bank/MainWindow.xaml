@@ -5,12 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Bank" Height="350" Width="525">
-    <Window.Resources>
-        <Style TargetType="ListView">
-            <Setter Property="BorderBrush" Value="Green"/>
-        </Style>
-    </Window.Resources>
+        Title="Bank" Height="500" Width="700">
 
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -25,45 +20,60 @@
 
         <!-- Шапка -->
         <Label Name="NameLable" Grid.Row="0" Grid.ColumnSpan="2"
-               Content="Name" FontSize="20" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
-        <Button Content="Выйти" Grid.Column="2"
-                VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Padding="5,2"/>
+               Content="{Binding Path=FirstName}" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button Content="Выйти" Grid.Column="2" 
+                VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
         <!-- Список счетов -->
-        <ListView Name="AccountList" BorderThickness="0,2,2,0"
-                 Grid.Column="0" Grid.Row="1"/>
+        <ListView Name="AccountList" BorderThickness="0,2,2,0" Grid.Column="0" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="auto">
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Счета" FontSize="18"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Name}" FontSize="18" Background="#FFA7DBFF"
+                                        BorderBrush="#FF0000A8" Click="AccountButtonClick"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <!-- Управление счетом -->
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
-                <RowDefinition Height="34*"/>
+                <RowDefinition Height="35*"/>
                 <RowDefinition Height="202*"/>
             </Grid.RowDefinitions>
 
-            <Label Name="AccounName" FontSize="14"
-                   Content="AccountName" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="5,0,0,0" Width="98"/>
+            <Rectangle Grid.Row="0" Height="2" Fill="Green" VerticalAlignment="Top"/>
+            <Label Name="AccountName" Content="{Binding Path=Name}" 
+                   HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="5,0,0,0"/>
 
-            <Label Name="Balance" FontSize="13"
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Label Name="BalanceText"
                    Content="На счету: " Grid.Row="1" VerticalContentAlignment="Center" Margin="5,0,0,0"/>
+                <Label Name="BalanceCount" VerticalContentAlignment="Center" Content="{Binding Path=Balance, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center">
-                <Button Name="FillButton" FontSize="18"
-                        Content="Пополнить счет" Grid.Row="2" Margin="0,20,0,0" Padding="10,1"/>
-                <Button Name="WithdrawButton" FontSize="18"
-                        Content="Снять со счета" Grid.Row="2" Margin="0,20,0,0" Padding="10,1"/>
+                <Button Name="FillButton"
+                        Content="Пополнить счет" Grid.Row="2" Margin="0,20,0,0"/>
+                <Button Name="WithdrawButton"
+                        Content="Снять со счета" Grid.Row="2" Margin="0,20,0,0" />
             </StackPanel>
         </Grid>
 
         <!-- Курсы валют -->
         <ListView IsEnabled="True" Name="ExchangeList" Grid.Row="1" Grid.Column="2"
                  BorderThickness="2,2,0,0">
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Валюта" DisplayMemberBinding="{Binding Code}"/>
-                    <GridViewColumn Header="Курс" DisplayMemberBinding="{Binding Path = Exchange}" Width="55"/>
-                </GridView>
-            </ListView.View>-->
         </ListView>
 
     </Grid>

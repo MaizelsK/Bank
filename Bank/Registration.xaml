@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Регистрация" Height="400" Width="400">
+        Title="Регистрация" Height="650" Width="600">
     <Window.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Margin" Value="20, 0, 0, 0"/>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="20,5,20,0"/>
+            <Setter Property="FontSize" Value="22"/>
         </Style>
 
-        <Style TargetType="Label">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="15,5,0,0"/>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="20,0,20,0"/>
         </Style>
     </Window.Resources>
 
@@ -28,35 +29,53 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Content="Имя" Margin="15,17,0,0"/>
-            <TextBox Name="FirstNameText"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <Label Content="Имя"/>
+            <TextBox Name="FirstNameText" Text="{Binding Path=FirstName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=FirstNameText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
-            <Label Content="Фамилия" Margin="15,17,0,0"/>
-            <TextBox Name="SurNameText"/>
+            <Label Content="Фамилия"/>
+            <TextBox Name="SurNameText" Text="{Binding Path=SurName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=SurNameText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
-            <Label Content="Отчество" Margin="15,17,0,0"/>
-            <TextBox Name="MiddleNameText"/>
+            <Label Content="Отчество"/>
+            <TextBox Name="MiddleNameText" Text="{Binding Path=MiddleName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=MiddleNameText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
-            <Label Content="Дата рождения" Margin="15,17,0,0"/>
-            <DatePicker Name="BirthDatePicker" Margin="20,0,0,0"/>
+            <Label Content="Дата рождения"/>
+            <DatePicker Name="BirthDatePicker" Margin="20,5,20,0" SelectedDate="{Binding Path=BirthDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                        BorderBrush="Green" BorderThickness="2" FontSize="20"/>
+            <TextBlock Text="{Binding ElementName=BirthDatePicker, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
             <Label Content="Почтовый ящик"/>
-            <TextBox Name="EmailText"/>
+            <TextBox Name="EmailText" Text="{Binding Path=Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=EmailText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
             <Label Content="Номер телефона"/>
-            <TextBox Name="PhoneText"/>
+            <TextBox Name="PhoneText" Text="{Binding Path=Phone, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=PhoneText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
             <Label Content="Логин"/>
-            <TextBox Name="LoginText"/>
+            <TextBox Name="LoginText" Text="{Binding Path=Login, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=LoginText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
             <Label Content="Пароль"/>
-            <TextBox Name="PasswordText"/>
+            <TextBox Name="PasswordText" Text="{Binding Path=Password, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=PasswordText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
 
             <Label Content="Потвердите пароль"/>
-            <TextBox Name="PasswordConfText"/>
+            <TextBox Name="PasswordConfText" Text="{Binding Path=ConfirmPassword, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{Binding ElementName=PasswordConfText, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Bottom">
+            <Rectangle Height="5" Fill="Green" Margin="0,0,0,20"/>
+            <Button Name="RegisterButton" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,0,25"
+                VerticalAlignment="Bottom" Click="RegisterButtonClick">
+            Зарегистрироватся
+        </Button>
         </StackPanel>
     </Grid>
 </Window>
