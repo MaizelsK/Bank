@@ -26,7 +26,7 @@ namespace Bank.Entities
             User newUser = new User
             {
                 Id = Guid.NewGuid(),
-                FisrtName = "Kirill",
+                FirstName = "Kirill",
                 MiddleName = "Igorevich",
                 SurName = "Maizels",
                 Email = "domo.ddr@gmail.com",

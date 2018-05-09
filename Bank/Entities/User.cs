@@ -9,7 +9,7 @@ namespace Bank.Entities
     public class User
     {
         public Guid Id { get; set; }
-        public string FisrtName { get; set; }
+        public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string SurName { get; set; }
         public DateTime BirthDate { get; set; }

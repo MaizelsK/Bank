@@ -35,7 +35,7 @@ namespace Bank
                 User newUser = new User
                 {
                     Id = Guid.NewGuid(),
-                    FisrtName = model.FirstName,
+                    FirstName = model.FirstName,
                     MiddleName = model.MiddleName,
                     SurName = model.SurName,
                     BirthDate = model.BirthDate,

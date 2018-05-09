@@ -22,6 +22,7 @@ namespace Bank
     public partial class MainWindow : Window
     {
         private User CurrentUser { get; set; }
+
         public MainWindow(User signedUser)
         { 
             CurrentUser = signedUser;
@@ -29,25 +30,13 @@ namespace Bank
             InitializeComponent();
             InitializeExchangeList();
             AccountList.ItemsSource = CurrentUser.Accounts;
+
+            this.DataContext = CurrentUser;
         }
 
         // Инициализация списка курсов валют
         private void InitializeExchangeList()
         {
-            var gridView = new GridView();
-            ExchangeList.View = gridView;
-
-            gridView.Columns.Add(new GridViewColumn
-            {
-                Header = "Валюта",
-                DisplayMemberBinding = new Binding("Code"),
-            });
-            gridView.Columns.Add(new GridViewColumn
-            {
-                Header = "Курс",
-                DisplayMemberBinding = new Binding("Exchange") { StringFormat = "{0:0.000}" }
-            });
-
             // Создание потока
             Thread thread = new Thread(new ParameterizedThreadStart(FillExchangeValues));
             thread.Start(ExchangeList);
@@ -73,10 +62,22 @@ namespace Bank
             });
         }
 
+        // Обработка нажатия по счету в списке счетов
         private void AccountButtonClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
             Account acc = clickedButton.DataContext as Account;
+
+            AccountInfo.DataContext = acc;
+        }
+
+        // Кнопка выйти
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
+        {
+            Login loginWindow = new Login();
+            loginWindow.Show();
+
+            this.Close();
         }
     }
 }

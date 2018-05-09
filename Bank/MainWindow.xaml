@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Bank" Height="500" Width="700">
+        Title="Bank" Height="500" Width="700" MinWidth="570">
 
     <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110*"/>
-            <ColumnDefinition Width="301*"/>
-            <ColumnDefinition Width="106*"/>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="196*"/>
+            <ColumnDefinition Width="75*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="48*"/>
@@ -19,10 +19,11 @@
         </Grid.RowDefinitions>
 
         <!-- Шапка -->
-        <Label Name="NameLable" Grid.Row="0" Grid.ColumnSpan="2"
-               Content="{Binding Path=FirstName}" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label Name="NameLable" Content="{Binding StringFormat=Здравствуйте\, {0}, Path=FirstName}" FontSize="32" 
+               Margin="5,0,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
         <Button Content="Выйти" Grid.Column="2" 
-                VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                VerticalContentAlignment="Center" VerticalAlignment="Center"
+                HorizontalAlignment="Right" Margin="0,16,20,17" Height="38" Width="83" Click="ExitButtonClick"/>
 
         <!-- Список счетов -->
         <ListView Name="AccountList" BorderThickness="0,2,2,0" Grid.Column="0" Grid.Row="1">
@@ -31,13 +32,13 @@
                     <GridViewColumn Width="auto">
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Счета" FontSize="18"/>
+                                <TextBlock Text="Счета" FontSize="18" Width="{Binding ElementName=AccountList, Path=ActualWidth}"/>
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="{Binding Name}" FontSize="18" Background="#FFA7DBFF"
-                                        BorderBrush="#FF0000A8" Click="AccountButtonClick"/>
+                                <Button Content="{Binding Name}" FontSize="18" Click="AccountButtonClick"
+                                        HorizontalAlignment="Stretch"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -46,7 +47,7 @@
         </ListView>
 
         <!-- Управление счетом -->
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1" Name="AccountInfo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="35*"/>
@@ -74,6 +75,34 @@
         <!-- Курсы валют -->
         <ListView IsEnabled="True" Name="ExchangeList" Grid.Row="1" Grid.Column="2"
                  BorderThickness="2,2,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Код" FontSize="18"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Code}" FontSize="18"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Курс" FontSize="18"/>
+                            </DataTemplate>
+                        </GridViewColumn.HeaderTemplate>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Exchange, StringFormat= {}{0:0.00}}" FontSize="18"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
         </ListView>
 
     </Grid>
